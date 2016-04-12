@@ -1,24 +1,29 @@
 import React from 'react';
-import {Router, Route, Link, hashHistory, IndexRoute} from 'react-router';
+import {Router, Route, Link, hashHistory, Redirect, IndexRoute} from 'react-router';
 
-const Page = (props) => <div><h1>{props.location.query.message || 'Hello dare again'}</h1><Links /></div>
+const Home = () => <div><h1>Home</h1><Links /></div>
+const About = () => <div><h1>About Us</h1><Links /></div>
+const Contact = () => <div><h1>Contact</h1><Links /></div>
+const Links = () => {
+    return (
+        <nav>
+            <Link to="/">Home</Link>
+            <Link to="about-us">About Us</Link>
+            <Link to="about">About</Link>
+            <Link to="contact">Contact</Link>
+        </nav>
+    )
+};
 
-const Links = () =>
-    <nav>
-        <Link to={ {pathname: '/', query: {message: 'Yo'}} }>Yo</Link>
-        <Link to={ {pathname: '/', query: {message: 'Dog'}} }>Dog</Link>
-        <Link to={ {pathname: '/', query: {message: 'Peace'}} }>Peace</Link>
-    </nav>
-
-
-class App extends React.Component {
-    render() {
-        return (
-            <Router history={ hashHistory }>
-                <Route path="/" component={Page}></Route>
-            </Router>
-        );
-    }
+const App = () => {
+    return (
+        <Router history={hashHistory}>
+            <Route path="/" component={Home}></Route>
+            <Route path="/about-us" component={About}></Route>
+            <Route path="/contact" component={Contact}></Route>
+            <Redirect from='/about' to='/about-us'></Redirect>
+        </Router>
+    )
 }
 
 export default App;
